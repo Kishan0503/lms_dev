@@ -6,7 +6,12 @@ class IsLibrarianRequired(BasePermission):
     Read-only for everyone else.
     """
     def has_permission(self, request, view):
-        if request.method == "POST":
-            return request.user.is_authenticated and request.user.role == 'LIBRARIAN'
-        
-        return True
+        return request.user.is_authenticated and request.user.role == 'LIBRARIAN'
+    
+class IsStudentRequired(BasePermission):
+    """
+    Allows only students to create.
+    Read-only for everyone else.
+    """
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == 'STUDENT'

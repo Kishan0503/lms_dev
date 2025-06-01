@@ -14,9 +14,19 @@ class AuthorListCreateView(generics.ListCreateAPIView):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
     permission_classes = [IsAuthenticated, IsLibrarianRequired]
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsAuthenticated(), IsLibrarianRequired()]
+        return [IsAuthenticated()]
 
 
 class GenreListCreateView(generics.ListCreateAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     permission_classes = [IsAuthenticated, IsLibrarianRequired]
+    
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [IsAuthenticated(), IsLibrarianRequired()]
+        return [IsAuthenticated()]
